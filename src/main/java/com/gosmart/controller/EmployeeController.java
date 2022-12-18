@@ -61,7 +61,7 @@ public class EmployeeController {
 			else
 			{
 				Integer empId=employeeService.insertEmployee(employeeEntity);
-				return new ResponseEntity<>(empId,HttpStatus.OK);
+				return new ResponseEntity<>(empId,HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
 			log.error("{}-Controller isEmployeeExist() Exception occurred -{}",EmployeeConstants.EMPLOYEE, e.getMessage());

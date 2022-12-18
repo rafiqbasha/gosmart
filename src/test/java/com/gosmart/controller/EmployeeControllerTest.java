@@ -53,10 +53,11 @@ public class EmployeeControllerTest {
 
 	}
 
-	@Test(expected = GoSmartException.class)
+	@Test
 	public void testInsertEmployee_Exception() throws Exception {
 		EmployeeEntity employeeEntity=new EmployeeEntity();
-		when(service.insertEmployee(employeeEntity)).thenThrow(NullPointerException.class);
+		when(service.isEmployeeExist(employeeEntity.getEmployeeEmailId())).thenThrow(NullPointerException.class);
+	//	when(service.insertEmployee(employeeEntity)).thenThrow(NullPointerException.class);
 		ResponseEntity<Integer> response = controller.insertEmployee(employeeEntity);
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 
