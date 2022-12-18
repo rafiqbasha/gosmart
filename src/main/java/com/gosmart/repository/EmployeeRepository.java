@@ -7,4 +7,4 @@ import com.gosmart.repository.entity.EmployeeEntity;
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Integer> {
 	public EmployeeEntity findByEmployeeEmailId(String employeeEmailId);
-}
+}	

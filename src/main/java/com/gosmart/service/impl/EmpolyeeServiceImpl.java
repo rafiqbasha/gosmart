@@ -23,11 +23,11 @@ public class EmpolyeeServiceImpl implements EmployeeService {
 	 * */
 	
 	public Boolean isEmployeeExist(String emailId) {
-		log.info("{}-ServiceImpl isEmployeeExist() started",EmployeeConstants.EMPLOYEE);
+		log.info("{}-ServiceImpl insertEmployee() started",EmployeeConstants.EMPLOYEE);
 		Boolean isExist =false;
 		
 		try {
-			log.info("{}-ServiceImpl isEmployeeExist() fetching details from repository",EmployeeConstants.EMPLOYEE);
+			log.info("{}-ServiceImpl insertEmployee() saving employee",EmployeeConstants.EMPLOYEE);
 			  EmployeeEntity employeeEntity=employeeRepository.findByEmployeeEmailId(emailId);
 			 
 			if(employeeEntity!=null)
@@ -35,12 +35,28 @@ public class EmpolyeeServiceImpl implements EmployeeService {
 				isExist=true;
 			}
 		} catch (Exception e) {
+			log.error("{}-ServiceImpl  Exception occurred -{}",EmployeeConstants.EMPLOYEE, e.getMessage());
+			throw new GoSmartException(e.getMessage());
+		}
+		log.info("{}-ServiceImpl insertEmployee() is-{}",EmployeeConstants.EMPLOYEE,isExist);
+		
+		return isExist;
+	}
+	@Override
+	public Integer insertEmployee(EmployeeEntity employeeEntity) {
+		Integer employeeId=0;
+		try {
+			EmployeeEntity employeeEntity2=employeeRepository.save(employeeEntity);
+			if(employeeEntity2!=null)
+			{
+				employeeId=employeeEntity2.getEmployeeId();
+			}
+		} catch (Exception e) {
 			log.error("{}-ServiceImpl isEmployeeExist() Exception occurred -{}",EmployeeConstants.EMPLOYEE, e.getMessage());
 			throw new GoSmartException(e.getMessage());
 		}
-		log.info("{}-ServiceImpl isEmployeeExist() is-{}",EmployeeConstants.EMPLOYEE,isExist);
+		return employeeId;
 		
-		return isExist;
 	}
 
 }
